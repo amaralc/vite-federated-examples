@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import federation from '@originjs/vite-plugin-federation'
 import dns from 'dns'
+import react from '@vitejs/plugin-react'
 
 dns.setDefaultResultOrder('verbatim')
 
@@ -10,21 +10,17 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'shared',
-      filename: 'shared.js',
-      exposes: {
-        './Button': './src/components/Button'
+      name: 'shell',
+      remotes: {
+        remote: 'http://localhost:5000/assets/remoteEntry.js',
       },
-      shared: ['react']
+      shared: ['react'],
     })
   ],
   preview: {
     host: 'localhost',
-    port: 5000,
+    port: 5001,
     strictPort: true,
-    headers: {
-      "Access-Control-Allow-Origin": "*"
-    }
   },
   build: {
     target: 'esnext',
