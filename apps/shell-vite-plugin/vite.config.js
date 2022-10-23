@@ -12,7 +12,7 @@ export default defineConfig({
     federation({
       name: 'shell',
       remotes: {
-        remote: 'http://localhost:5000/assets/remoteEntry.js',
+        remote: `${process.env.REMOTE_URL}/assets/remoteEntry.js`,
       },
       shared: ['react'],
     })
